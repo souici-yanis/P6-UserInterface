@@ -73,3 +73,23 @@ label {
 .searchClass {
     text-align: start;
 }
+
+#listBook {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.bookCard {
+    text-align: left;
+    margin-top: 5vh;
+    width:44%;
+    height:400px;
+    background-color: rgb(206, 206, 206);
+    margin-right:5vh;
+}
+
+.imageBook{
+    margin-left:40%;
+}

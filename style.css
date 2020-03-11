@@ -84,7 +84,7 @@ label {
 .bookCard {
     text-align: left;
     margin-top: 5vh;
-    width:44%;
+    width:40%;
     height:400px;
     background-color: rgb(206, 206, 206);
     margin-right:5vh;
@@ -92,4 +92,49 @@ label {
 
 .imageBook{
     margin-left:40%;
+    width:200px;
+}
+
+#noResult {
+    text-align: start;
+}
+
+.bookMark {
+    background: url("bookmark-regular.svg") no-repeat;
+    width: 45px;
+    height: 30px;
+    position: relative;
+    left:95%;
+    top:-50px;
+}
+
+.delete {
+    background: url("trash-alt-regular.svg") no-repeat;
+    width: 45px;
+    height: 30px;
+    position: relative;
+    left:95%;
+    top:-50px;
+}
+
+
+.delete:hover {
+    background: url("trash-alt-regularRed.svg") no-repeat;
+}
+
+.bookMark:hover {
+    background: url("bookmark-solid.svg") no-repeat;
+}
+
+.bookClicked {
+    background: url("bookmark-solid.svg") no-repeat;
+    width: 45px;
+    height: 30px;
+    position: relative;
+    left:95%;
+    top:-50px;
+}
+
+.inputError {
+    box-shadow: 0 0 5px 1px red;
 }

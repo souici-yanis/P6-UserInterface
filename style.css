@@ -84,10 +84,15 @@ label {
 .bookCard {
     text-align: left;
     margin-top: 5vh;
+    margin-right:6vh;
+    margin-left:6vh;
+    padding-left: 10px;
+    padding-right: 10px;
     width:40%;
     height:400px;
     background-color: rgb(206, 206, 206);
-    margin-right:5vh;
+    position: relative;
+    min-width: 320px;
 }
 
 .imageBook{
@@ -103,9 +108,9 @@ label {
     background: url("bookmark-regular.svg") no-repeat;
     width: 45px;
     height: 30px;
-    position: relative;
-    left:95%;
-    top:-50px;
+    position: absolute;
+    right:0px;
+    top:10px;
 }
 
 .delete {
@@ -130,11 +135,16 @@ label {
     background: url("bookmark-solid.svg") no-repeat;
     width: 45px;
     height: 30px;
-    position: relative;
-    left:95%;
-    top:-50px;
+    position: absolute;
+    right:0px;
+    top:10px;
 }
 
 .inputError {
     box-shadow: 0 0 5px 1px red;
+}
+
+.bookCard h3 {
+    color: green;
+    width:80%;
 }

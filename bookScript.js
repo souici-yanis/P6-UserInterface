@@ -14,6 +14,10 @@ function init(){
         userDisplay.id ="userDisplay";
         userDisplay.classList.remove("searchClass");
     }
+    var content = document.getElementById('content');
+    var divContent = document.createElement('div');
+    divContent.id= "listBook";
+    content.appendChild(divContent);
     getBook(); // TODO get books via map to create
     document.getElementById("button").addEventListener("click", addBook);
 }
@@ -44,10 +48,8 @@ function cancelSearch(){
 function checkFieldEmpty(ev){
     if(ev.target.validity.valueMissing){
         createErrorInput(ev.target.attributes[1].value, 'Merci de renseigner le champ.');
-        return false;
     } else {
         removeErrorInput(ev.target.attributes[1].value);
-        return true;
     }
 }
 
@@ -59,17 +61,17 @@ function clearListBook() {
 }
 
 function getBook() {
+    var idBookMap = JSON.parse(sessionStorage.getItem('booksMap'));
     var idBook = sessionStorage.getItem('book');
     console.log('getBook : ', idBook);
     if(!idBook){
         return;
     }
-    for(var i=0; i<idBook.length; i++){
-        var bookItemId = idBook.split(',')[i];
-        var bookItem = maptest.get(bookItemId);
-        if (bookItem) {
-            createItem(bookItem, true);
-        }
+    var bookNumber = idBook.split(',').length;
+    for(var i=0; i<bookNumber; i++){
+        var idBook = idBook.split(',')[i];
+        var bookITEM = idBookMap[idBook];
+        createItem(bookITEM, true);
     }
 }
 
@@ -105,9 +107,6 @@ function removeErrorInput(id){
 }
 
 function searchBook(){
-    setTitle('Recherche');
-    clearListBook();
-    var xhr = new XMLHttpRequest();
     var titleBook = document.getElementById("titleBook").value;
     var auteur = document.getElementById("auteur").value;
     if (titleBook == ''){
@@ -118,7 +117,11 @@ function searchBook(){
         createErrorInput('auteur', 'Merci de renseigner le champ.');
         return;
     } 
-    
+
+    setTitle('Recherche');
+    clearListBook();
+
+    var xhr = new XMLHttpRequest();
     var request = 'https://www.googleapis.com/books/v1/volumes?q=' + titleBook + '+inauthor:'+ auteur;
     xhr.open('GET', request);
     xhr.send();
@@ -129,11 +132,6 @@ function searchBook(){
             var result = JSON.parse(xhr.responseText);
             if(result.totalItems){
                 setTitle('Résultat de la recherche');
-                var content = document.getElementById('content');
-                var divContent = document.createElement('div');
-                divContent.id= "listBook";
-                content.appendChild(divContent);
-                
                 for (var i=0; i<result.items.length; i++){        
                     createItem(result.items[i], false);
                 }
@@ -159,8 +157,8 @@ function createItem(book, isPochList) {
         divContent.innerHTML += '<div data-bookid="' + book.id + '" id="' + book.id + '" class="oneBookMark bookMark"></div>';
     }
 
-    divContent.innerHTML += '<p> Id : ' + book.id + '</p>';
-    divContent.innerHTML += '<p> Auteur : ' + book.volumeInfo.authors[0] + '</p>';
+    divContent.innerHTML += '<p style="font-style: italic;"> Id : ' + book.id + '</p>';
+    divContent.innerHTML += '<p> Auteur : <strong>' + book.volumeInfo.authors[0] + '</strong></p>';
     if(book.volumeInfo.description){
         divContent.innerHTML += '<p> Description : ' + book.volumeInfo.description.substring(0,200) + '...</p>';
     } else {
@@ -182,26 +180,40 @@ function createItem(book, isPochList) {
     }
 }
 
+var bookSavedMap = new Map();
 function saveBook(ev){
     var clickedBookId = ev.target.dataset.bookid;
+    var clickedBook = maptest.get(clickedBookId);
     var choosenBookId = [];
     if(!sessionStorage.getItem('book')){
+        bookSavedMap[clickedBookId] = clickedBook;
+        sessionStorage.setItem('booksMap', JSON.stringify(bookSavedMap));
         choosenBookId.push(clickedBookId);
         sessionStorage.setItem('book', choosenBookId);
     } else {
         var books = sessionStorage.getItem('book');
+        var booksMap = sessionStorage.getItem('booksMap');
         if(books.includes(clickedBookId)){
             alert('Vous ne pouvez ajouter deux fois le même livre.');
         } else {
             var divBook = document.getElementById(clickedBookId);
             divBook.classList.remove("bookMark");
             divBook.classList.add("bookClicked");
-            
+            bookSavedMap = JSON.parse(booksMap);
+            bookSavedMap[clickedBookId] = clickedBook;
             choosenBookId.push(books);
             choosenBookId.push(clickedBookId);
             sessionStorage.setItem('book', choosenBookId);
+            sessionStorage.setItem('booksMap', JSON.stringify(bookSavedMap));
         }
     }
+}
+
+function mapToObj(map){
+    const obj = {}
+    for (let [k,v] of map)
+    obj[k] = v
+    return obj
 }
 
 function deleteBook(ev){

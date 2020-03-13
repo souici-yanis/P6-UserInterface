@@ -69,8 +69,8 @@ function getBook() {
     }
     var bookNumber = idBook.split(',').length;
     for(var i=0; i<bookNumber; i++){
-        var idBook = idBook.split(',')[i];
-        var bookITEM = idBookMap[idBook];
+        var idBookItem = idBook.split(',')[i];
+        var bookITEM = idBookMap[idBookItem];
         createItem(bookITEM, true);
     }
 }

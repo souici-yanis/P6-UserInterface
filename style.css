@@ -148,3 +148,12 @@ label {
     color: green;
     width:80%;
 }
+
+#footerBanner {
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(transparent, white);
+    z-index: 1000;
+    bottom: 0;
+}

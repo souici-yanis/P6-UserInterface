@@ -74,6 +74,12 @@ label {
     text-align: start;
 }
 
+.searchClassComputer {
+    text-align: center;
+    width:40%;
+    margin:auto;
+}
+
 #listBook {
     display: flex;
     flex-direction: row;

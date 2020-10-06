@@ -31,7 +31,11 @@ function addBook(){
     userDisplay.innerHTML += '<input type="text" id="auteur" name="auteur" required></br>';
     userDisplay.innerHTML += '<button id="search">Rechercher</button></br>';
     userDisplay.innerHTML += '<button id="cancel">Annuler</button>';
-    userDisplay.classList.add("searchClass");
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {     
+        userDisplay.classList.add("searchClass");
+    } else {
+        userDisplay.classList.add("searchClassComputer");
+    }
     document.getElementById("search").addEventListener("click", searchBook);
     document.getElementById("cancel").addEventListener("click", cancelSearch);
     document.getElementById("titleBook").addEventListener("keyup", checkFieldEmpty);
@@ -190,6 +194,8 @@ function saveBook(ev){
         sessionStorage.setItem('booksMap', JSON.stringify(bookSavedMap));
         choosenBookId.push(clickedBookId);
         sessionStorage.setItem('book', choosenBookId);
+        var divBook = document.getElementById(clickedBookId);
+        divBook.classList.add("bookClicked");
     } else {
         var books = sessionStorage.getItem('book');
         var booksMap = sessionStorage.getItem('booksMap');

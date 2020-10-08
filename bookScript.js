@@ -173,7 +173,7 @@ function createItem(book, isPochList) {
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {     
             divContent.innerHTML += '<div class="imageBook"><img style="width:75px;" src="' + book.volumeInfo.imageLinks.smallThumbnail + '"></div>';
         } else {
-        divContent.innerHTML += '<div class="imageBook"><img style="width:100px;" src="' + book.volumeInfo.imageLinks.smallThumbnail + '"></div>';
+            divContent.innerHTML += '<div class="imageBook"><img style="width:100px;" src="' + book.volumeInfo.imageLinks.smallThumbnail + '"></div>';
         }
     } else {
         divContent.innerHTML += '<img src="unavailable.png" style="width:150px; display: block; margin-left: auto; margin-right: auto">';

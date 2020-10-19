@@ -70,14 +70,18 @@ label {
     width: 100%;
 }
 
-.searchClass {
-    text-align: start;
+@media only screen and (min-width: 600px) {
+    .searchClass {
+        text-align: start;
+    }
 }
 
-.searchClassComputer {
-    text-align: center;
-    width:40%;
-    margin:auto;
+@media only screen and (max-width: 600px) {
+    .searchClass {
+        text-align: center;
+        width:40%;
+        margin:auto;
+    }
 }
 
 #listBook {

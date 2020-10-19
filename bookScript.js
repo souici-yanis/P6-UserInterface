@@ -31,11 +31,8 @@ function addBook(){
     userDisplay.innerHTML += '<input type="text" id="auteur" name="auteur" required></br>';
     userDisplay.innerHTML += '<button id="search">Rechercher</button></br>';
     userDisplay.innerHTML += '<button id="cancel">Annuler</button>';
-    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {     
-        userDisplay.classList.add("searchClass");
-    } else {
-        userDisplay.classList.add("searchClassComputer");
-    }
+    userDisplay.classList.add("searchClass");
+
     document.getElementById("search").addEventListener("click", searchBook);
     document.getElementById("cancel").addEventListener("click", cancelSearch);
     document.getElementById("titleBook").addEventListener("keyup", checkFieldEmpty);
@@ -142,6 +139,8 @@ function searchBook(){
             } else { 
                 setTitle('Aucun livre n\'a été trouvé.');
             }
+        }  else { 
+            setTitle('Une erreur est survenue lors du chargement.');
         }
     });  
 }
@@ -170,11 +169,7 @@ function createItem(book, isPochList) {
     }
 
     if(book.volumeInfo.imageLinks){
-        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {     
-            divContent.innerHTML += '<div class="imageBook"><img style="width:75px;" src="' + book.volumeInfo.imageLinks.smallThumbnail + '"></div>';
-        } else {
-            divContent.innerHTML += '<div class="imageBook"><img style="width:100px;" src="' + book.volumeInfo.imageLinks.smallThumbnail + '"></div>';
-        }
+        divContent.innerHTML += '<div class="imageBook"><img style="width:50%;" src="' + book.volumeInfo.imageLinks.smallThumbnail + '"></div>';
     } else {
         divContent.innerHTML += '<img src="unavailable.png" style="width:150px; display: block; margin-left: auto; margin-right: auto">';
     }
